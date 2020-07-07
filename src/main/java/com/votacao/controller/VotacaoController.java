@@ -2,6 +2,7 @@ package com.votacao.controller;
 
 import com.votacao.converter.VotacaoConverter;
 import com.votacao.dto.PautaInclusaoDTO;
+import com.votacao.dto.VotacaoInclusaoDTO;
 import com.votacao.service.VotacaoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,8 +30,8 @@ public class VotacaoController {
 
     @ApiOperation(value = "Votação de pauta")
     @GetMapping()
-    public ResponseEntity votar(@RequestBody @Valid PautaInclusaoDTO pautaInclusaoDTO){
-        votacaoService.votar(pautaInclusaoDTO);
+    public ResponseEntity votar(@RequestBody @Valid VotacaoInclusaoDTO votacaoInclusaoDTO){
+        votacaoService.votar(votacaoInclusaoDTO);
 return null;
     }
 

@@ -5,6 +5,9 @@ import com.votacao.entity.VotacaoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 @Component
 public class VotacaoConverter {
 
@@ -22,7 +25,9 @@ public class VotacaoConverter {
         return VotacaoEntity.builder()
                 .id(votacaoInclusaoDTO.getId())
                 .pautaEntity(pautaConverter.convertToEntity(votacaoInclusaoDTO.getPautaDTO()))
-                .associadoEntity(associadoConverter.convertToEntity(votacaoInclusaoDTO.getAssociadoDTO()))
+//                .associados(votacaoInclusaoDTO.getAssociados().forEach(a->{
+//                    associadoConverter.convertToEntity(a);
+//                }))
                 .voto(votacaoInclusaoDTO.getVoto())
                 .build();
     }
@@ -31,7 +36,7 @@ public class VotacaoConverter {
         return VotacaoInclusaoDTO.builder()
                 .id(votacaoEntity.getId())
                 .voto(votacaoEntity.getVoto())
-                .associadoDTO(associadoConverter.convertToDTO(votacaoEntity.getAssociadoEntity()))
+                //.associadoDTO(associadoConverter.convertToDTO(votacaoEntity.getAssociadoEntity()))
                 .pautaDTO(pautaConverter.convertToDTO(votacaoEntity.getPautaEntity()))
                 .build();
     }

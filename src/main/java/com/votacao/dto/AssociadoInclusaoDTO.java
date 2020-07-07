@@ -1,4 +1,5 @@
 package com.votacao.dto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,4 +16,6 @@ public class AssociadoInclusaoDTO {
     private Long id;
 
     private String nome;
+    
+    private VotacaoInclusaoDTO votacaoInclusaoDTO;
 }

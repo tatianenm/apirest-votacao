@@ -27,18 +27,13 @@ public class PautaEntity implements Serializable {
     @Column(name = "nome")
     private String nomePauta;
 
-    @OneToOne
-    @JoinColumn(name = "idAssociado")
-    private AssociadoEntity associadosEntity;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PautaEntity that = (PautaEntity) o;
         return Objects.equals(id, that.id) &&
-                nomePauta.equals(that.nomePauta) &&
-                Objects.equals(associadosEntity, that.associadosEntity);
+                nomePauta.equals(that.nomePauta) ;
     }
 
     @Override

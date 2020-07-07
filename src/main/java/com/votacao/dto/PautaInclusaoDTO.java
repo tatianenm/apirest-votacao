@@ -12,4 +12,6 @@ public class PautaInclusaoDTO {
     private Long id;
 
     private String nomePauta;
+
+    private VotacaoInclusaoDTO votacaoInclusaoDTO;
 }

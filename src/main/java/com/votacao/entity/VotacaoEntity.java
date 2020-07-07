@@ -1,10 +1,12 @@
 package com.votacao.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @AllArgsConstructor
@@ -21,15 +23,14 @@ public class VotacaoEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
-    @JsonBackReference
-    @Column(name = "idpauta")
+    @OneToOne
+    @JoinColumn(name = "idpauta")
     private PautaEntity pautaEntity;
 
-    @OneToMany
-    @JsonBackReference
-    @Column(name = "idassociado")
-    private AssociadoEntity associadoEntity;
+
+    @OneToMany(mappedBy = "votacao")
+    @JsonManagedReference
+    private List<AssociadoEntity> associados;
 
     @Column(name = "voto")
     private String voto;
@@ -41,7 +42,7 @@ public class VotacaoEntity implements Serializable {
         VotacaoEntity that = (VotacaoEntity) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(pautaEntity, that.pautaEntity) &&
-                Objects.equals(associadoEntity, that.associadoEntity) &&
+                Objects.equals(associados, that.associados) &&
                 Objects.equals(voto, that.voto);
     }
 
