@@ -3,17 +3,20 @@ package com.votacao.controller;
 import com.votacao.converter.VotacaoConverter;
 import com.votacao.dto.PautaInclusaoDTO;
 import com.votacao.dto.VotacaoInclusaoDTO;
+import com.votacao.entity.PautaEntity;
+import com.votacao.entity.VotacaoEntity;
 import com.votacao.service.VotacaoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 
 @RestController
 @Api(value = "api-rest/v1/votacao")
@@ -30,10 +33,15 @@ public class VotacaoController {
     }
 
     @ApiOperation(value = "Votação de pauta")
-    @PostMapping
-    public ResponseEntity votar(@RequestBody @Valid VotacaoInclusaoDTO votacaoInclusaoDTO){
-        votacaoService.votar(votacaoInclusaoDTO);
-return null;
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
+                 produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<VotacaoInclusaoDTO> cadastrar(
+            @RequestBody @Valid VotacaoInclusaoDTO votacaoInclusaoDTO, UriComponentsBuilder uriBuilder) {
+        VotacaoEntity votacaoEntity = votacaoService.votar(votacaoInclusaoDTO);
+        URI uri = uriBuilder.path("/votacao/{id}").buildAndExpand(votacaoEntity.getId()).toUri();
+        return ResponseEntity.created(uri)
+                .body(votacaoConverter.convertToDTO(votacaoEntity));
     }
 
 

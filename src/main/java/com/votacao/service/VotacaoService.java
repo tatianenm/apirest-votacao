@@ -2,6 +2,7 @@ package com.votacao.service;
 
 import com.votacao.converter.VotacaoConverter;
 import com.votacao.dto.VotacaoInclusaoDTO;
+import com.votacao.entity.VotacaoEntity;
 import com.votacao.exception.VotoException;
 import com.votacao.repository.VotacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,11 @@ public class VotacaoService {
     }
 
 
-    public void votar(VotacaoInclusaoDTO votacaoInclusaoDTO) {
+    public VotacaoEntity votar(VotacaoInclusaoDTO votacaoInclusaoDTO) {
         if (validaVotoRepetido(votacaoInclusaoDTO)) {
             throw new VotoException();
         }
-        var votacao = votacaoRepository.save(votacaoConverter.convertToEntity(votacaoInclusaoDTO));
+        return votacaoRepository.save(votacaoConverter.convertToEntity(votacaoInclusaoDTO));
     }
 
     private Boolean validaVotoRepetido(VotacaoInclusaoDTO votacaoDTO){
