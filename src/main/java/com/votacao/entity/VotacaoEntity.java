@@ -42,7 +42,6 @@ public class VotacaoEntity implements Serializable {
         VotacaoEntity that = (VotacaoEntity) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(pautaEntity, that.pautaEntity) &&
-                Objects.equals(associados, that.associados) &&
                 Objects.equals(voto, that.voto);
     }
 

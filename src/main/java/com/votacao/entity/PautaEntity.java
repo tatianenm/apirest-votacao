@@ -33,7 +33,7 @@ public class PautaEntity implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         PautaEntity that = (PautaEntity) o;
         return Objects.equals(id, that.id) &&
-                nomePauta.equals(that.nomePauta) ;
+                Objects.equals(nomePauta, that.nomePauta);
     }
 
     @Override
