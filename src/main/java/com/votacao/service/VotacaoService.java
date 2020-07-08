@@ -22,7 +22,7 @@ public class VotacaoService {
     }
 
 
-    public VotacaoEntity votar(VotacaoInclusaoDTO votacaoInclusaoDTO) {
+    public VotacaoEntity cadastrar(VotacaoInclusaoDTO votacaoInclusaoDTO) {
         if (validaVotoRepetido(votacaoInclusaoDTO)) {
             throw new VotoException();
         }
@@ -31,7 +31,7 @@ public class VotacaoService {
 
     private Boolean validaVotoRepetido(VotacaoInclusaoDTO votacaoDTO){
        return  votacaoRepository
-               .findByDataSistemaAndPautaDTOAndAssociadoDTO(votacaoDTO.getData(),
-                       votacaoDTO.getPautaDTO(), votacaoDTO.getAssociadoDTO()) != null;
+               .findByDataSistemaAndPautaEntityAndAssociados(votacaoDTO.getData(),
+                       votacaoDTO.getPautaDTO().getId(), votacaoDTO.getAssociadoDTO().getId()) != null;
     }
 }

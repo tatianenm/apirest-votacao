@@ -20,6 +20,7 @@ import java.net.URI;
 
 @RestController
 @Api(value = "api-rest/v1/votacao")
+@RequestMapping("api-rest/v1/votacao")
 public class VotacaoController {
 
     private VotacaoService votacaoService;
@@ -38,7 +39,7 @@ public class VotacaoController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<VotacaoInclusaoDTO> cadastrar(
             @RequestBody @Valid VotacaoInclusaoDTO votacaoInclusaoDTO, UriComponentsBuilder uriBuilder) {
-        VotacaoEntity votacaoEntity = votacaoService.votar(votacaoInclusaoDTO);
+        VotacaoEntity votacaoEntity = votacaoService.cadastrar(votacaoInclusaoDTO);
         URI uri = uriBuilder.path("/votacao/{id}").buildAndExpand(votacaoEntity.getId()).toUri();
         return ResponseEntity.created(uri)
                 .body(votacaoConverter.convertToDTO(votacaoEntity));

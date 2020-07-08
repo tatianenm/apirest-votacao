@@ -1,5 +1,6 @@
 package com.votacao.converter;
 
+import com.votacao.dto.AssociadoDTO;
 import com.votacao.dto.AssociadoInclusaoDTO;
 import com.votacao.entity.AssociadoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,4 +27,17 @@ public class AssociadoConverter {
                 .cpf(associadoEntity.getCpf())
                 .build();
     }
+
+    public AssociadoEntity convertToEntity(AssociadoDTO associadoDTO){
+        return AssociadoEntity.builder()
+                .id(associadoDTO.getId())
+                .build();
+    }
+
+    public AssociadoDTO convertToAssociadoDTO(AssociadoEntity associadoEntity){
+        return AssociadoDTO.builder()
+                .id(associadoEntity.getId())
+                .build();
+    }
+
 }

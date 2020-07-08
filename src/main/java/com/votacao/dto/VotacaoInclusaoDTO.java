@@ -1,23 +1,27 @@
 package com.votacao.dto;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
-
 import java.time.LocalDate;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-@Builder
 public class VotacaoInclusaoDTO {
 
     @ApiModelProperty(hidden = true)
     private Long id;
 
-    private PautaInclusaoDTO pautaDTO;
+    private PautaDTO pautaDTO;
 
-    private AssociadoInclusaoDTO associadoDTO;
+    private AssociadoDTO associadoDTO;
 
     private String voto;
 
