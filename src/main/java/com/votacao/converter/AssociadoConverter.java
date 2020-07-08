@@ -15,6 +15,7 @@ public class AssociadoConverter {
         return AssociadoEntity.builder()
                 .id(associadoInclusaoDTO.getId())
                 .nome(associadoInclusaoDTO.getNome())
+                .cpf(associadoInclusaoDTO.getCpf())
                 .build();
     }
 
@@ -22,6 +23,7 @@ public class AssociadoConverter {
         return AssociadoInclusaoDTO.builder()
                 .id(associadoEntity.getId())
                 .nome(associadoEntity.getNome())
+                .cpf(associadoEntity.getCpf())
                 .build();
     }
 }

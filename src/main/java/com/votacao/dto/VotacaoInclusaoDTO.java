@@ -1,14 +1,9 @@
 package com.votacao.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Builder;
+import lombok.*;
 
-import java.util.List;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +17,10 @@ public class VotacaoInclusaoDTO {
 
     private PautaInclusaoDTO pautaDTO;
 
-    private List<AssociadoInclusaoDTO> associados;
+    private AssociadoInclusaoDTO associadoDTO;
 
     private String voto;
+
+    @ApiModelProperty(hidden = true)
+    private LocalDate data = LocalDate.now();
 }

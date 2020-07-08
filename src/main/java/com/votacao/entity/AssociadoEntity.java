@@ -35,6 +35,9 @@ public class AssociadoEntity implements Serializable {
     @JoinColumn(name = "idvotacao")
     private VotacaoEntity votacao;
 
+    @Column(name = "cpf")
+    private String cpf;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -19,4 +19,6 @@ public class AssociadoInclusaoDTO {
 
     private String nome;
 
+    private String cpf;
+
 }
