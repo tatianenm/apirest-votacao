@@ -15,7 +15,6 @@ public class AssociadoConverter {
         return AssociadoEntity.builder()
                 .id(associadoInclusaoDTO.getId())
                 .nome(associadoInclusaoDTO.getNome())
-                .votacao(votacaoConverter.convertToEntity(associadoInclusaoDTO.getVotacaoInclusaoDTO()))
                 .build();
     }
 
@@ -23,7 +22,6 @@ public class AssociadoConverter {
         return AssociadoInclusaoDTO.builder()
                 .id(associadoEntity.getId())
                 .nome(associadoEntity.getNome())
-                .votacaoInclusaoDTO(votacaoConverter.convertToDTO(associadoEntity.getVotacao()))
                 .build();
     }
 }
