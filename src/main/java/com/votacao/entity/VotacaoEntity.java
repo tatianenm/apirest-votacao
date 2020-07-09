@@ -47,6 +47,10 @@ public class VotacaoEntity implements Serializable {
     @Column(name = "data")
     private LocalDate dataSistema;
 
+    @OneToOne
+    @JoinColumn(name = "idsessao")
+    private SessaoEntity sessaoEntity;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

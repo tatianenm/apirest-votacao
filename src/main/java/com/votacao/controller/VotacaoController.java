@@ -39,7 +39,7 @@ public class VotacaoController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<VotacaoInclusaoDTO> cadastrar(
             @RequestBody @Valid VotacaoInclusaoDTO votacaoInclusaoDTO, UriComponentsBuilder uriBuilder) {
-        VotacaoEntity votacaoEntity = votacaoService.cadastrar(votacaoInclusaoDTO);
+        VotacaoEntity votacaoEntity = votacaoService.salvarVotacao(votacaoInclusaoDTO);
         URI uri = uriBuilder.path("/votacao/{id}").buildAndExpand(votacaoEntity.getId()).toUri();
         return ResponseEntity.created(uri)
                 .body(votacaoConverter.convertToDTO(votacaoEntity));

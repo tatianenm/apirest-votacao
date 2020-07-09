@@ -8,6 +8,9 @@ import com.votacao.repository.VotacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 @Service
 public class VotacaoService {
 
@@ -22,17 +25,32 @@ public class VotacaoService {
     }
 
 
-    public VotacaoEntity cadastrar(VotacaoInclusaoDTO votacaoInclusaoDTO) {
+    public VotacaoEntity salvarVotacao(VotacaoInclusaoDTO votacaoInclusaoDTO) {
         if (validaVotoRepetido(votacaoInclusaoDTO)) {
             throw new VotoException();
         }
+
         return votacaoRepository.save(votacaoConverter.convertToEntity(votacaoInclusaoDTO));
+
+
     }
 
     private Boolean validaVotoRepetido(VotacaoInclusaoDTO votacaoDTO){
-       return votacaoRepository
-               .findByDataSistemaAndPautaEntity_idAndAssociados_Id(votacaoDTO.getDataSistema(),
-                       votacaoDTO.getPautaDTO().getId(), votacaoDTO.getAssociadoDTO().getId()) != null ;
+        return votacaoRepository
+                .findByDataSistemaAndPautaEntity_idAndAssociados_Id(votacaoDTO.getDataSistema(),
+                        votacaoDTO.getPautaDTO().getId(), votacaoDTO.getAssociadoDTO().getId()) != null ;
 
+    }
+
+    private void tempoSessaoVotacaoPauta(VotacaoInclusaoDTO votacaoInclusaoDTO) {
+        Timer timer = new Timer();
+        int interval = 60000;
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+
+            }
+        }, 0, interval);
+        timer.
     }
 }
