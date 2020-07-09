@@ -42,15 +42,5 @@ public class VotacaoService {
 
     }
 
-    private void tempoSessaoVotacaoPauta(VotacaoInclusaoDTO votacaoInclusaoDTO) {
-        Timer timer = new Timer();
-        int interval = 60000;
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
 
-            }
-        }, 0, interval);
-        timer.
-    }
 }
