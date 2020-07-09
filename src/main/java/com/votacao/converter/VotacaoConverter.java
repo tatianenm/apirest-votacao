@@ -24,6 +24,7 @@ public class VotacaoConverter {
                 .associados(Arrays
                         .asList(associadoConverter.convertToEntity(votacaoInclusaoDTO.getAssociadoDTO())))
                 .voto(votacaoInclusaoDTO.getVoto())
+                .dataSistema(votacaoInclusaoDTO.getDataSistema())
                 .build();
     }
 
@@ -33,6 +34,7 @@ public class VotacaoConverter {
                 .voto(votacaoEntity.getVoto())
                 .associadoDTO(associadoConverter.convertToAssociadoDTO(votacaoEntity.getAssociados().get(0)))
                 .pautaDTO(pautaConverter.convertToPautaDTO(votacaoEntity.getPautaEntity()))
+                .dataSistema(votacaoEntity.getDataSistema())
                 .build();
     }
 }

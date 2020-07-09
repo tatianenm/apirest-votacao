@@ -7,5 +7,5 @@ import java.time.LocalDate;
 
 public interface VotacaoRepository extends CrudRepository<VotacaoEntity,Long> {
 
-    Boolean findByDataSistemaAndPautaEntityAndAssociados(LocalDate data, Long idPauta, Long idAssociado);
+    VotacaoEntity findByDataSistemaAndPautaEntityAndAssociados_Id(LocalDate data, Long idPauta, Long idAssociado);
 }

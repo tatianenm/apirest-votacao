@@ -26,5 +26,5 @@ public class VotacaoInclusaoDTO {
     private String voto;
 
     @ApiModelProperty(hidden = true)
-    private LocalDate data = LocalDate.now();
+    private LocalDate dataSistema = LocalDate.now();
 }
