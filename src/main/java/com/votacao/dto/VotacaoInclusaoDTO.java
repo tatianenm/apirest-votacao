@@ -1,5 +1,6 @@
 package com.votacao.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
 
@@ -26,5 +27,7 @@ public class VotacaoInclusaoDTO {
     private String voto;
 
     @ApiModelProperty(hidden = true)
+   // @ApiModelProperty(example = "dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataSistema = LocalDate.now();
 }
