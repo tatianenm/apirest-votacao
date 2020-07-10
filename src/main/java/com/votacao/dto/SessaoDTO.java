@@ -1,6 +1,8 @@
 package com.votacao.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.votacao.domain.StatusSessaoEnum;
+import com.votacao.entity.PautaEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -17,5 +19,10 @@ public class SessaoDTO {
     @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
     private LocalDateTime dataHoraInicio;
 
-    private String statusSessao;
+    private StatusSessaoEnum statusSessao;
+
+    private LocalDateTime dataHoraFim;
+
+    private PautaEntity pauta;
+
 }

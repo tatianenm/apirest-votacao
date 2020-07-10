@@ -1,21 +1,13 @@
 package com.votacao.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
+import com.votacao.domain.VotoEnum;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @Setter
@@ -33,16 +25,12 @@ public class VotacaoEntity implements Serializable {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "idpauta")
-    private PautaEntity pauta;
-
-
-    @OneToMany(mappedBy = "votacao")
-    @JsonManagedReference
-    private List<AssociadoEntity> associados;
+    @JoinColumn(name = "idassociado")
+    private AssociadoEntity associado;
 
     @Column(name = "voto")
-    private String voto;
+    @Enumerated(EnumType.STRING)
+    private VotoEnum voto;
 
     @Column(name = "data")
     private LocalDate dataSistema;
@@ -56,9 +44,7 @@ public class VotacaoEntity implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VotacaoEntity that = (VotacaoEntity) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(pauta, that.pauta) &&
-                Objects.equals(voto, that.voto);
+        return Objects.equals(id, that.id);
     }
 
     @Override

@@ -30,11 +30,6 @@ public class AssociadoEntity implements Serializable {
     @Column(name = "nome")
     private String nome;
 
-    @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "idvotacao")
-    private VotacaoEntity votacao;
-
     @Column(name = "cpf")
     private String cpf;
 
@@ -43,8 +38,7 @@ public class AssociadoEntity implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AssociadoEntity that = (AssociadoEntity) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(nome, that.nome);
+        return Objects.equals(id, that.id);
     }
 
     @Override
