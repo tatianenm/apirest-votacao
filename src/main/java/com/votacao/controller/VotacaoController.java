@@ -1,6 +1,7 @@
 package com.votacao.controller;
 
 import com.votacao.converter.VotacaoConverter;
+import com.votacao.dto.PautaDTO;
 import com.votacao.dto.PautaInclusaoDTO;
 import com.votacao.dto.PautaListaDTO;
 import com.votacao.dto.VotacaoInclusaoDTO;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 import java.net.URI;
 import java.util.List;
 
@@ -49,8 +51,9 @@ public class VotacaoController {
 
     @ApiOperation(value = "Lista de votações")
     @GetMapping
-    public List<VotacaoInclusaoDTO> listarVotações() {
-        return votacaoService.listarVotações();
+    public List<VotacaoInclusaoDTO> listarVotações(
+            @RequestBody @Valid PautaDTO pautaDTO) {
+        return votacaoService.listarVotações(pautaDTO);
     }
 
 
