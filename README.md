@@ -11,20 +11,25 @@
    
   Heroku: https://apirest-votacao.herokuapp.com/swagger-ui.html;
  
+   Lista de Associados
+   URL:GET/api-rest/v1/associados   
+   
    Cadastro de Associado
-   URL:GET/api-rest/v1/associados
    URL:POST/api-rest/v1/associados
    
+   Lista de Pautas
+   URL:GET/api-rest/v1/pautas
    
    Cadastro de Pauta
-   URL:GET/api-rest/v1/pautas
    URL:POST/api-rest/v1/pautas
    
    Cadastro de Sessão
    URL:POST/api-rest/v1/sessao
    
+   Lista de Votação
+    URL:GET/api-rest/v1/votacao
+   
    Cadastro de Votação
-   URL:GET/api-rest/v1/votacao
    URL:POST/api-rest/v1/votacao
 
   Código implementado:
