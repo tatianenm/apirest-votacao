@@ -2,6 +2,7 @@ package com.votacao.controller;
 
 import com.votacao.converter.AssociadoConverter;
 import com.votacao.dto.AssociadoInclusaoDTO;
+import com.votacao.dto.AssociadoListaDTO;
 import com.votacao.dto.PautaInclusaoDTO;
 import com.votacao.entity.AssociadoEntity;
 import com.votacao.entity.PautaEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @Api(value = "api-rest/v1/associados")
 @RestController
@@ -43,5 +45,11 @@ public class AssosciadoController {
         URI uri = uriBuilder.path("/associados/{id}").buildAndExpand(associadoEntity.getId()).toUri();
         return ResponseEntity.created(uri)
                 .body(associadoConverter.convertToDTO(associadoEntity));
+    }
+
+    @ApiOperation(value = "Lista de associados")
+    @GetMapping
+    public List<AssociadoListaDTO> listarContas() {
+        return associadoService.listarAssociados();
     }
 }

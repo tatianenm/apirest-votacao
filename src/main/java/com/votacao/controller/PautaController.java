@@ -2,6 +2,7 @@ package com.votacao.controller;
 
 import com.votacao.converter.PautaConverter;
 import com.votacao.dto.PautaInclusaoDTO;
+import com.votacao.dto.PautaListaDTO;
 import com.votacao.entity.PautaEntity;
 import com.votacao.service.PautaService;
 import io.swagger.annotations.Api;
@@ -15,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @Api(value = "api-rest/v1/pautas")
 @RestController
@@ -43,5 +45,9 @@ public class PautaController {
                 .body(pautaConverter.convertToDTO(pautaEntity));
     }
 
-
+    @ApiOperation(value = "Lista de pautas")
+    @GetMapping
+    public List<PautaListaDTO> listarPautas() {
+        return pautaService.listarPautas();
+    }
 }

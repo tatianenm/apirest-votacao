@@ -2,10 +2,15 @@ package com.votacao.service;
 
 import com.votacao.converter.AssociadoConverter;
 import com.votacao.dto.AssociadoInclusaoDTO;
+import com.votacao.dto.AssociadoListaDTO;
 import com.votacao.entity.AssociadoEntity;
+import com.votacao.exception.AssociadoNotFoundException;
 import com.votacao.repository.AssociadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AssociadoService {
@@ -22,5 +27,15 @@ public class AssociadoService {
 
     public AssociadoEntity cadastrar(AssociadoInclusaoDTO associadoInclusaoDTO) {
         return associadoRepository.save(associadoConverter.convertToEntity(associadoInclusaoDTO));
+    }
+
+    public List<AssociadoListaDTO> listarAssociados() {
+        var associados = associadoRepository.findAll();
+        if (associados.isEmpty()) {
+            throw new AssociadoNotFoundException("Nenhum associado foi encontrado.");
+        }
+        return associados.stream()
+                .map(associadoConverter::convertToListaDTO)
+                .collect(Collectors.toList());
     }
 }

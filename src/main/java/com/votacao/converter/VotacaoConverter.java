@@ -1,6 +1,7 @@
 package com.votacao.converter;
 
 import com.votacao.dto.VotacaoInclusaoDTO;
+import com.votacao.dto.VotacaoListaDTO;
 import com.votacao.entity.VotacaoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,6 +35,18 @@ public class VotacaoConverter {
                 .associado(associadoConverter.convertToAssociadoDTO(votacaoEntity.getAssociado()))
                 .sessao(sessaoConverter.convertToDTO(votacaoEntity.getSessao()))
                 .dataSistema(votacaoEntity.getDataSistema())
+                .build();
+    }
+
+    public VotacaoListaDTO convertToListaDTO(VotacaoEntity votacaoEntity){
+        return VotacaoListaDTO.builder()
+                .dataSistema(votacaoEntity.getDataSistema())
+                .id(votacaoEntity.getId())
+                .sessao(sessaoConverter.convertToDTO(votacaoEntity.getSessao()))
+                .idPauta(votacaoEntity.getSessao().getPauta().getId())
+                .nomePauta(votacaoEntity.getSessao().getPauta().getNomePauta())
+                .votoNão("")
+                .votoSim("")
                 .build();
     }
 }

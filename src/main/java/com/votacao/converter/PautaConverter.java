@@ -2,6 +2,7 @@ package com.votacao.converter;
 
 import com.votacao.dto.PautaDTO;
 import com.votacao.dto.PautaInclusaoDTO;
+import com.votacao.dto.PautaListaDTO;
 import com.votacao.entity.PautaEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,14 +26,16 @@ public class PautaConverter {
                 .nomePauta(pautaEntity.getNomePauta())
                 .build();
     }
+
+    public PautaListaDTO convertToListaDTO(PautaEntity pautaEntity) {
+        return PautaListaDTO.builder()
+                .id(pautaEntity.getId())
+                .nomePauta(pautaEntity.getNomePauta())
+                .build();
+    }
     public PautaEntity convertToEntity(PautaDTO pautaDTO) {
         return PautaEntity.builder()
                 .id(pautaDTO.getId())
-                .build();
-    }
-    public PautaDTO convertToPautaDTO(PautaEntity pautaEntity) {
-        return PautaDTO.builder()
-                .id(pautaEntity.getId())
                 .build();
     }
 }

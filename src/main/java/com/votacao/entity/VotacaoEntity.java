@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
@@ -33,7 +34,7 @@ public class VotacaoEntity implements Serializable {
     private VotoEnum voto;
 
     @Column(name = "data")
-    private LocalDate dataSistema;
+    private LocalDateTime dataSistema;
 
     @OneToOne
     @JoinColumn(name = "idsessao")

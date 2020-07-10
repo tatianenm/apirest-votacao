@@ -1,8 +1,7 @@
 package com.votacao.repository;
 
-import com.votacao.entity.AssociadoEntity;
 import com.votacao.entity.SessaoEntity;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SessaoRepository extends CrudRepository<SessaoEntity, Long> {
+public interface SessaoRepository extends JpaRepository<SessaoEntity, Long> {
 }

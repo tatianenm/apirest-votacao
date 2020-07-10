@@ -2,6 +2,7 @@ package com.votacao.controller;
 
 import com.votacao.converter.VotacaoConverter;
 import com.votacao.dto.PautaInclusaoDTO;
+import com.votacao.dto.PautaListaDTO;
 import com.votacao.dto.VotacaoInclusaoDTO;
 import com.votacao.entity.PautaEntity;
 import com.votacao.entity.VotacaoEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @Api(value = "api-rest/v1/votacao")
@@ -43,6 +45,12 @@ public class VotacaoController {
         URI uri = uriBuilder.path("/votacao/{id}").buildAndExpand(votacaoEntity.getId()).toUri();
         return ResponseEntity.created(uri)
                 .body(votacaoConverter.convertToDTO(votacaoEntity));
+    }
+
+    @ApiOperation(value = "Lista de votações")
+    @GetMapping
+    public List<VotacaoInclusaoDTO> listarVotações() {
+        return votacaoService.listarVotações();
     }
 
 
