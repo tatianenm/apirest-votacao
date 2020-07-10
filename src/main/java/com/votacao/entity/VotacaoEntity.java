@@ -34,7 +34,7 @@ public class VotacaoEntity implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "idpauta")
-    private PautaEntity pautaEntity;
+    private PautaEntity pauta;
 
 
     @OneToMany(mappedBy = "votacao")
@@ -49,7 +49,7 @@ public class VotacaoEntity implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "idsessao")
-    private SessaoEntity sessaoEntity;
+    private SessaoEntity sessao;
 
     @Override
     public boolean equals(Object o) {
@@ -57,7 +57,7 @@ public class VotacaoEntity implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         VotacaoEntity that = (VotacaoEntity) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(pautaEntity, that.pautaEntity) &&
+                Objects.equals(pauta, that.pauta) &&
                 Objects.equals(voto, that.voto);
     }
 
