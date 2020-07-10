@@ -38,7 +38,7 @@ public class VotacaoService {
     private Boolean validaVotoRepetido(VotacaoInclusaoDTO votacaoDTO){
         return votacaoRepository
                 .findByDataSistemaAndPautaEntity_idAndAssociados_Id(votacaoDTO.getDataSistema(),
-                        votacaoDTO.getPautaDTO().getId(), votacaoDTO.getAssociadoDTO().getId()) != null ;
+                        votacaoDTO.getPauta().getId(), votacaoDTO.getAssociado().getId()) != null ;
 
     }
 

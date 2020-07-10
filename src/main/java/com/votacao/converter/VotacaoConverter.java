@@ -20,9 +20,9 @@ public class VotacaoConverter {
     public VotacaoEntity convertToEntity(VotacaoInclusaoDTO votacaoInclusaoDTO){
         return VotacaoEntity.builder()
                 .id(votacaoInclusaoDTO.getId())
-                .pautaEntity(pautaConverter.convertToEntity(votacaoInclusaoDTO.getPautaDTO()))
+                .pautaEntity(pautaConverter.convertToEntity(votacaoInclusaoDTO.getPauta()))
                 .associados(Arrays
-                        .asList(associadoConverter.convertToEntity(votacaoInclusaoDTO.getAssociadoDTO())))
+                        .asList(associadoConverter.convertToEntity(votacaoInclusaoDTO.getAssociado())))
                 .voto(votacaoInclusaoDTO.getVoto())
                 .dataSistema(votacaoInclusaoDTO.getDataSistema())
                 .build();
@@ -32,8 +32,8 @@ public class VotacaoConverter {
         return VotacaoInclusaoDTO.builder()
                 .id(votacaoEntity.getId())
                 .voto(votacaoEntity.getVoto())
-                .associadoDTO(associadoConverter.convertToAssociadoDTO(votacaoEntity.getAssociados().get(0)))
-                .pautaDTO(pautaConverter.convertToPautaDTO(votacaoEntity.getPautaEntity()))
+                .associado(associadoConverter.convertToAssociadoDTO(votacaoEntity.getAssociados().get(0)))
+                .pauta(pautaConverter.convertToPautaDTO(votacaoEntity.getPautaEntity()))
                 .dataSistema(votacaoEntity.getDataSistema())
                 .build();
     }
