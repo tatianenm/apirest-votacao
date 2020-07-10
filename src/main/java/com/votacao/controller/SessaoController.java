@@ -35,11 +35,9 @@ public class SessaoController {
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<SessaoDTO> cadastrar(
-            @RequestBody @Valid SessaoDTO sessaoDTO, UriComponentsBuilder uriBuilder) {
-        SessaoEntity sessaoEntity = sessaoService.cadastrar(sessaoDTO);
-        URI uri = uriBuilder.path("/sessao/{id}").buildAndExpand(sessaoEntity.getId()).toUri();
-        return ResponseEntity.created(uri)
-                .body(sessaoConverter.convertToDTO(sessaoEntity));
+    public ResponseEntity<SessaoDTO> iniciarSessao(Long idPauta, Integer validade) {
+        SessaoEntity sessaoEntity = sessaoService.iniciarSessao(idPauta, validade);
+        return ResponseEntity.ok(sessaoConverter.convertToDTO(sessaoEntity));
     }
+
 }

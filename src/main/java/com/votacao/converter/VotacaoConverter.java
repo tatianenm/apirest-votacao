@@ -14,11 +14,15 @@ public class VotacaoConverter {
     @Autowired
     private AssociadoConverter associadoConverter;
 
+    @Autowired
+    private SessaoConverter sessaoConverter;
+
     public VotacaoEntity convertToEntity(VotacaoInclusaoDTO votacaoInclusaoDTO){
         return VotacaoEntity.builder()
                 .id(votacaoInclusaoDTO.getId())
                 .associado(associadoConverter.convertToEntity(votacaoInclusaoDTO.getAssociado()))
                 .voto(votacaoInclusaoDTO.getVoto())
+                .sessao(sessaoConverter.convertToEntity(votacaoInclusaoDTO.getSessao()))
                 .dataSistema(votacaoInclusaoDTO.getDataSistema())
                 .build();
     }
@@ -28,6 +32,7 @@ public class VotacaoConverter {
                 .id(votacaoEntity.getId())
                 .voto(votacaoEntity.getVoto())
                 .associado(associadoConverter.convertToAssociadoDTO(votacaoEntity.getAssociado()))
+                .sessao(sessaoConverter.convertToDTO(votacaoEntity.getSessao()))
                 .dataSistema(votacaoEntity.getDataSistema())
                 .build();
     }

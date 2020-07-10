@@ -36,12 +36,12 @@ public class SessaoEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusSessaoEnum statusSessao;
 
-    @Column(name = "datahorafim")
-    private LocalDateTime dataHoraFim;
-
     @ManyToOne
     @JoinColumn(name = "idpauta")
     private PautaEntity pauta;
+
+    @Column(name = "validade")
+    private Integer validade;
 
     @Override
     public boolean equals(Object o) {
