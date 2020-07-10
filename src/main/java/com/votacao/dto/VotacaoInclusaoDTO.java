@@ -1,6 +1,9 @@
 package com.votacao.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.votacao.domain.VotoEnum;
+import com.votacao.entity.AssociadoEntity;
+import com.votacao.entity.SessaoEntity;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
 
@@ -9,6 +12,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -20,14 +25,13 @@ public class VotacaoInclusaoDTO {
     @ApiModelProperty(hidden = true)
     private Long id;
 
-    private PautaDTO pauta;
-
     private AssociadoDTO associado;
 
-    private String voto;
+    private VotoEnum voto;
+
+    private SessaoDTO sessao;
 
     @ApiModelProperty(hidden = true)
-   // @ApiModelProperty(example = "dd/MM/yyyy")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataSistema = LocalDate.now();
 }

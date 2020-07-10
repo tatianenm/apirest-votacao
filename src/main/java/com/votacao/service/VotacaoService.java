@@ -36,9 +36,10 @@ public class VotacaoService {
     }
 
     private Boolean validaVotoRepetido(VotacaoInclusaoDTO votacaoDTO){
+      var votacao =  votacaoConverter.convertToEntity(votacaoDTO);
         return votacaoRepository
-                .findByDataSistemaAndPauta_idAndAssociados_Id(votacaoDTO.getDataSistema(),
-                        votacaoDTO.getPauta().getId(), votacaoDTO.getAssociado().getId()) != null ;
+                .findByDataSistemaAndAssociadoAndSessao(votacaoDTO.getDataSistema(),
+                         votacao.getAssociado(), votacao.getSessao()) != null ;
 
     }
 
