@@ -65,8 +65,8 @@ public class VotacaoService {
                             pautaDTO.getId()));
         }
         votacoes.stream()
-                .map(votacaoConverter:: convertToListaDTO)
-                
+                .map(votacaoConverter:: convertToListaDTO);
+
 
         Long sim = getCount(votacoes, VotoEnum.SIM);
         Long nao = getCount(votacoes, VotoEnum.NAO);
