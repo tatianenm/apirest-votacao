@@ -20,9 +20,9 @@ public class VotacaoInclusaoDTO {
     @ApiModelProperty(hidden = true)
     private Long id;
 
-    private PautaDTO pautaDTO;
+    private PautaDTO pauta;
 
-    private AssociadoDTO associadoDTO;
+    private AssociadoDTO associado;
 
     private String voto;
 
