@@ -9,13 +9,25 @@
  
   Testar a aplicação: swagger
    
-   Deve-se acessar o endereço https://apirest-votacao.herokuapp.com/swagger-ui.html;
-
+  Heroku: https://apirest-votacao.herokuapp.com/swagger-ui.html;
+ 
+   Lista de Associados
+   URL:GET/api-rest/v1/associados   
+   
    Cadastro de Associado
    URL:POST/api-rest/v1/associados
    
+   Lista de Pautas
+   URL:GET/api-rest/v1/pautas
+   
    Cadastro de Pauta
    URL:POST/api-rest/v1/pautas
+   
+   Cadastro de Sessão
+   URL:POST/api-rest/v1/sessao
+   
+   Lista de Votação
+    URL:GET/api-rest/v1/votacao
    
    Cadastro de Votação
    URL:POST/api-rest/v1/votacao
