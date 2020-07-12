@@ -40,6 +40,12 @@ public class VotacaoEntity implements Serializable {
     @JoinColumn(name = "idsessao")
     private SessaoEntity sessao;
 
+    @Transient
+    private Long votoSim;
+
+    @Transient
+    private Long votoNão;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

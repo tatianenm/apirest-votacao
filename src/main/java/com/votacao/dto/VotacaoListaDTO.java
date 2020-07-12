@@ -14,11 +14,11 @@ public class VotacaoListaDTO {
 
     private Long id;
 
-    private String votoSim;
+    private Long votoSim;
 
-    private String votoNão;
+    private Long votoNão;
 
-    private SessaoDTO sessao;
+    private Long idSessao;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataSistema = LocalDateTime.now();

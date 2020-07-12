@@ -1,11 +1,7 @@
 package com.votacao.controller;
 
 import com.votacao.converter.VotacaoConverter;
-import com.votacao.dto.PautaDTO;
-import com.votacao.dto.PautaInclusaoDTO;
-import com.votacao.dto.PautaListaDTO;
-import com.votacao.dto.VotacaoInclusaoDTO;
-import com.votacao.entity.PautaEntity;
+import com.votacao.dto.*;
 import com.votacao.entity.VotacaoEntity;
 import com.votacao.service.VotacaoService;
 import io.swagger.annotations.Api;
@@ -18,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 import java.net.URI;
 import java.util.List;
 
@@ -51,10 +46,22 @@ public class VotacaoController {
 
     @ApiOperation(value = "Lista de votações")
     @GetMapping
-    public List<VotacaoInclusaoDTO> listarVotações(
+    public List<VotacaoListaDTO> listarVotações(
             @RequestBody @Valid PautaDTO pautaDTO) {
-        return votacaoService.listarVotações(pautaDTO);
+        return votacaoService.listarVotacao(pautaDTO);
     }
 
+    @ApiOperation(value = "Validar CPF")
+    @GetMapping("/{nome}")
+    public ResponseEntity validaCpf(@PathVariable(value = "cpf", required = true) String cpf) {
+        if (!votacaoService.validarCpf(cpf).is2xxSuccessful()) {
+            return new ResponseEntity<>(
+                    "UNABLE_TO_VOTE",
+                    HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(
+                "ABLE_TO_VOTE)",
+                HttpStatus.OK);
+    }
 
 }
