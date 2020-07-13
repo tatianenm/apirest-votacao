@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -20,8 +20,8 @@ public class VotacaoListaDTO {
 
     private Long idSessao;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime dataSistema = LocalDateTime.now();
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataSistema = LocalDate.now();
 
     private Long idPauta;
 
