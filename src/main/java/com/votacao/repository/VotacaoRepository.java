@@ -1,17 +1,17 @@
 package com.votacao.repository;
 
-import com.votacao.entity.AssociadoEntity;
-import com.votacao.entity.PautaEntity;
-import com.votacao.entity.SessaoEntity;
+import com.votacao.domain.VotoEnum;
 import com.votacao.entity.VotacaoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface VotacaoRepository extends JpaRepository<VotacaoEntity,Long> {
+public interface VotacaoRepository extends JpaRepository<VotacaoEntity, Long> {
 
-    boolean existsByDataSistemaAndAssociadoAndSessao(LocalDateTime data, AssociadoEntity associado, SessaoEntity sessao);
+    boolean existsByDataSistemaAndAssociado_IdAndSessao_Id(LocalDateTime data, Long idAssociado, Long idSessao);
 
-    List<VotacaoEntity> findBySessao_Pauta(PautaEntity pauta);
+    List<VotacaoEntity> findBySessao_Pauta_id(Long idPauta);
+
+    Long countBySessao_IdAndVoto(Long idSessao, VotoEnum votoEnum);
 }

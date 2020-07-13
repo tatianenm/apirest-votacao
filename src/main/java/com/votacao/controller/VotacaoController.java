@@ -34,7 +34,7 @@ public class VotacaoController {
 
     @ApiOperation(value = "Votação de pauta")
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
-                 produces = {MediaType.APPLICATION_JSON_VALUE})
+            produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<VotacaoInclusaoDTO> cadastrar(
             @RequestBody @Valid VotacaoInclusaoDTO votacaoInclusaoDTO, UriComponentsBuilder uriBuilder) {
@@ -47,13 +47,13 @@ public class VotacaoController {
     @ApiOperation(value = "Lista de votações")
     @GetMapping
     public List<VotacaoListaDTO> listarVotações(
-            @RequestBody @Valid PautaDTO pautaDTO) {
-        return votacaoService.listarVotacao(pautaDTO);
+            @RequestParam(value = "idPauta", required = true) Long idPauta) {
+        return votacaoService.listarVotacao(idPauta);
     }
 
     @ApiOperation(value = "Validar CPF")
-    @GetMapping("/{nome}")
-    public ResponseEntity validaCpf(@PathVariable(value = "cpf", required = true) String cpf) {
+    @GetMapping("/{cpf}")
+    public ResponseEntity validaCpf(@RequestParam(value = "cpf", required = true) String cpf) {
         if (!votacaoService.validarCpf(cpf).is2xxSuccessful()) {
             return new ResponseEntity<>(
                     "UNABLE_TO_VOTE",

@@ -17,9 +17,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class VotacaoService {
@@ -64,24 +67,42 @@ public class VotacaoService {
     private Boolean validaVotoRepetido(VotacaoInclusaoDTO votacaoDTO) {
         var votacao = votacaoConverter.convertToEntity(votacaoDTO);
         return votacaoRepository
-                .existsByDataSistemaAndAssociadoAndSessao(votacaoDTO.getDataSistema(),
-                        votacao.getAssociado(), votacao.getSessao());
+                .existsByDataSistemaAndAssociado_IdAndSessao_Id(votacaoDTO.getDataSistema(),
+                        votacao.getAssociado().getId(), votacao.getSessao().getId());
 
     }
 
-    public List<VotacaoListaDTO> listarVotacao(PautaDTO pautaDTO) {
-        var votacoes = votacaoRepository.findBySessao_Pauta(pautaConverter.convertToEntity(pautaDTO));
+    public List<VotacaoListaDTO> listarVotacao(Long idPauta) {
+        var votacoes = votacaoRepository.findBySessao_Pauta_id(idPauta);
         if (votacoes.isEmpty()) {
             throw new PautaNotFoundException(
                     String.format("Nenhuma votação foi encontrada para pauta id %s",
-                            pautaDTO.getId()));
+                            idPauta));
         }
-        return votacaoConverter.converterToDTO(votacoes);
+        var dtos = votacaoConverter.convertToDTO(votacoes)
+                .stream()
+                .collect(Collectors.groupingBy(dto -> dto.getIdSessao()))
+                .values()
+                .stream()
+                .map(v -> v.stream().findFirst().get())
+                .collect(toList());
+        var votacoesDto = new ArrayList<VotacaoListaDTO>();
+        dtos.forEach(vDTO -> {
+            vDTO.setVotoSim(getCount(vDTO.getIdSessao(), VotoEnum.SIM));
+            vDTO.setVotoNão(getCount(vDTO.getIdSessao(), VotoEnum.NAO));
+            votacoesDto.add(vDTO);
+        });
+        return votacoesDto;
+
     }
 
     public HttpStatus validarCpf(String cpf) {
-        return restTemplate.getForEntity(ENDPOINT_VALIDA_CPF + cpf, String.class).getStatusCode();
+        return restTemplate
+                .getForEntity(ENDPOINT_VALIDA_CPF + cpf, String.class)
+                .getStatusCode();
     }
 
-
+    private Long getCount(Long idSessao, VotoEnum voto) {
+        return votacaoRepository.countBySessao_IdAndVoto(idSessao, voto);
+    }
 }

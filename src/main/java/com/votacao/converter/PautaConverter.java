@@ -33,9 +33,17 @@ public class PautaConverter {
                 .nomePauta(pautaEntity.getNomePauta())
                 .build();
     }
+
     public PautaEntity convertToEntity(PautaDTO pautaDTO) {
         return PautaEntity.builder()
                 .id(pautaDTO.getId())
                 .build();
     }
+
+    public PautaDTO convertToPautaDTO(PautaEntity pautaEntity) {
+        return PautaDTO.builder()
+                .id(pautaEntity.getId())
+                .build();
+    }
+
 }

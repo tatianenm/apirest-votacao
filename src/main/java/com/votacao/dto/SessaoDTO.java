@@ -11,4 +11,8 @@ public class SessaoDTO {
 
     private Long id;
 
+    private Integer validade;
+
+    private PautaDTO pautaDTO;
+
 }

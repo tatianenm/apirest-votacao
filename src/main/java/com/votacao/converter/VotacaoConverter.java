@@ -9,7 +9,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Component
 public class VotacaoConverter {
@@ -43,11 +46,9 @@ public class VotacaoConverter {
                 .build();
     }
 
-    public List<VotacaoListaDTO> converterToDTO(List<VotacaoEntity> votacoes) {
+    public List<VotacaoListaDTO> convertToDTO(List<VotacaoEntity> votacoes) {
         var dtos = new ArrayList<VotacaoListaDTO>();
-
-        votacoes.stream()
-                .distinct()
+        votacoes
                 .forEach(v -> {
                     dtos.add(VotacaoListaDTO.builder()
                             .id(v.getId())
@@ -55,16 +56,10 @@ public class VotacaoConverter {
                             .idSessao(v.getSessao().getId())
                             .nomePauta(v.getSessao().getPauta().getNomePauta())
                             .idPauta(v.getSessao().getPauta().getId())
-                            .votoNão(getCount(votacoes, v.getId(), VotoEnum.NAO))
-                            .votoSim(getCount(votacoes, v.getId(), VotoEnum.SIM))
                             .build());
                 });
+
         return dtos;
     }
 
-    private Long getCount(List<VotacaoEntity> votacoes, Long idVotacao, VotoEnum voto) {
-        return votacoes.stream()
-                .filter(v -> Objects.equals(v.getId(), idVotacao) && v.getVoto().equals(voto))
-                .count();
-    }
 }
