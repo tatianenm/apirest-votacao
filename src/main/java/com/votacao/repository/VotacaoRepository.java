@@ -4,12 +4,12 @@ import com.votacao.domain.VotoEnum;
 import com.votacao.entity.VotacaoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface VotacaoRepository extends JpaRepository<VotacaoEntity, Long> {
 
-    boolean existsByDataSistemaAndAssociado_IdAndSessao_Id(LocalDateTime data, Long idAssociado, Long idSessao);
+    boolean existsByDataSistemaAndAssociado_IdAndSessao_Id(LocalDate data, Long idAssociado, Long idSessao);
 
     List<VotacaoEntity> findBySessao_Pauta_id(Long idPauta);
 

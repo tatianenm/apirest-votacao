@@ -5,6 +5,7 @@ import com.votacao.domain.VotoEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -24,6 +25,6 @@ public class VotacaoInclusaoDTO {
     private SessaoDTO sessao;
 
     @ApiModelProperty(hidden = true)
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime dataSistema = LocalDateTime.now();
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataSistema = LocalDate.now();
 }

@@ -34,7 +34,7 @@ public class VotacaoEntity implements Serializable {
     private VotoEnum voto;
 
     @Column(name = "data")
-    private LocalDateTime dataSistema;
+    private LocalDate dataSistema;
 
     @OneToOne
     @JoinColumn(name = "idsessao")

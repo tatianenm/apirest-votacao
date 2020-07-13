@@ -13,6 +13,6 @@ public class SessaoDTO {
 
     private Integer validade;
 
-    private PautaDTO pautaDTO;
+
 
 }
