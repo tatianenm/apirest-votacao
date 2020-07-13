@@ -1,7 +1,7 @@
 package com.votacao.controller;
 
 import com.votacao.converter.SessaoConverter;
-import com.votacao.dto.SessaoDTO;
+import com.votacao.dto.SessaoInclusaoDTO;
 import com.votacao.entity.SessaoEntity;
 import com.votacao.service.SessaoService;
 import io.swagger.annotations.Api;
@@ -32,7 +32,7 @@ public class SessaoController {
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<SessaoDTO> iniciarSessao(Long idPauta, Integer validade) {
+    public ResponseEntity<SessaoInclusaoDTO> iniciarSessao(Long idPauta, Integer validade) {
         SessaoEntity sessaoEntity = sessaoService.iniciarSessao(idPauta, validade);
         return ResponseEntity.ok(sessaoConverter.convertToDTO(sessaoEntity));
     }

@@ -2,7 +2,6 @@ package com.votacao.service;
 
 import com.votacao.converter.SessaoConverter;
 import com.votacao.domain.StatusSessaoEnum;
-import com.votacao.dto.SessaoDTO;
 import com.votacao.entity.PautaEntity;
 import com.votacao.entity.SessaoEntity;
 import com.votacao.exception.SessaoException;
@@ -25,7 +24,7 @@ public class SessaoService {
     }
 
     public SessaoEntity iniciarSessao(Long idPauta, Integer validade) {
-        if (validade == null || validade <1) {
+        if (validade == null || validade < 1) {
             validade = 1;
         }
         var sessaoEntity = SessaoEntity.builder()
@@ -47,8 +46,8 @@ public class SessaoService {
         var sessao = findById(idSessao);
         var minutos = ChronoUnit.MINUTES.between(sessao.getDataHoraInicio(), LocalDateTime.now());
         var expirado = minutos > sessao.getValidade();
-        if(expirado){
-           finalizarSessao(idSessao);
+        if (expirado) {
+            finalizarSessao(idSessao);
         }
         return expirado;
     }

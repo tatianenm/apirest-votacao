@@ -1,18 +1,13 @@
 package com.votacao.dto;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class SessaoDTO {
 
     private Long id;
-
-    private Integer validade;
-
-
-
 }

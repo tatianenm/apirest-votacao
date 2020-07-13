@@ -8,13 +8,13 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 public class ApiVotacaoApplication {
 
-	@Bean
-	public RestTemplate getRestTemplate() {
-		return new RestTemplate();
-	}
+    @Bean
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(ApiVotacaoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ApiVotacaoApplication.class, args);
+    }
 
 }

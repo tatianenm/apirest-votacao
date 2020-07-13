@@ -3,9 +3,7 @@ package com.votacao.controller;
 import com.votacao.converter.AssociadoConverter;
 import com.votacao.dto.AssociadoInclusaoDTO;
 import com.votacao.dto.AssociadoListaDTO;
-import com.votacao.dto.PautaInclusaoDTO;
 import com.votacao.entity.AssociadoEntity;
-import com.votacao.entity.PautaEntity;
 import com.votacao.service.AssociadoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +35,7 @@ public class AssosciadoController {
 
     @ApiOperation(value = "Cadastro de associado")
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
-                 produces = {MediaType.APPLICATION_JSON_VALUE})
+            produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<AssociadoInclusaoDTO> cadastrar(
             @RequestBody @Valid AssociadoInclusaoDTO associadoInclusaoDTO, UriComponentsBuilder uriBuilder) {

@@ -1,7 +1,8 @@
 package com.votacao.controller;
 
 import com.votacao.converter.VotacaoConverter;
-import com.votacao.dto.*;
+import com.votacao.dto.VotacaoInclusaoDTO;
+import com.votacao.dto.VotacaoListaDTO;
 import com.votacao.entity.VotacaoEntity;
 import com.votacao.service.VotacaoService;
 import io.swagger.annotations.Api;
@@ -60,7 +61,7 @@ public class VotacaoController {
                     HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(
-                "ABLE_TO_VOTE)",
+                "ABLE_TO_VOTE",
                 HttpStatus.OK);
     }
 

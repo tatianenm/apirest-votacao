@@ -1,6 +1,5 @@
 package com.votacao.converter;
 
-import com.votacao.domain.VotoEnum;
 import com.votacao.dto.VotacaoInclusaoDTO;
 import com.votacao.dto.VotacaoListaDTO;
 import com.votacao.entity.VotacaoEntity;
@@ -9,10 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Component
 public class VotacaoConverter {
@@ -26,7 +21,7 @@ public class VotacaoConverter {
     @Autowired
     private SessaoConverter sessaoConverter;
 
-    public VotacaoEntity convertToEntity(VotacaoInclusaoDTO votacaoInclusaoDTO){
+    public VotacaoEntity convertToEntity(VotacaoInclusaoDTO votacaoInclusaoDTO) {
         return VotacaoEntity.builder()
                 .id(votacaoInclusaoDTO.getId())
                 .associado(associadoConverter.convertToEntity(votacaoInclusaoDTO.getAssociado()))
@@ -36,12 +31,12 @@ public class VotacaoConverter {
                 .build();
     }
 
-    public VotacaoInclusaoDTO convertToDTO(VotacaoEntity votacaoEntity){
+    public VotacaoInclusaoDTO convertToDTO(VotacaoEntity votacaoEntity) {
         return VotacaoInclusaoDTO.builder()
                 .id(votacaoEntity.getId())
                 .voto(votacaoEntity.getVoto())
                 .associado(associadoConverter.convertToAssociadoDTO(votacaoEntity.getAssociado()))
-                .sessao(sessaoConverter.convertToDTO(votacaoEntity.getSessao()))
+                .sessao(sessaoConverter.convertToSessaoDTO(votacaoEntity.getSessao()))
                 .dataSistema(votacaoEntity.getDataSistema())
                 .build();
     }

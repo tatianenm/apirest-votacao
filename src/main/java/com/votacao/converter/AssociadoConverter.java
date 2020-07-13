@@ -13,7 +13,7 @@ public class AssociadoConverter {
     @Autowired
     private VotacaoConverter votacaoConverter;
 
-    public AssociadoEntity convertToEntity(AssociadoInclusaoDTO associadoInclusaoDTO){
+    public AssociadoEntity convertToEntity(AssociadoInclusaoDTO associadoInclusaoDTO) {
         return AssociadoEntity.builder()
                 .id(associadoInclusaoDTO.getId())
                 .nome(associadoInclusaoDTO.getNome())
@@ -21,7 +21,7 @@ public class AssociadoConverter {
                 .build();
     }
 
-    public AssociadoInclusaoDTO convertToDTO(AssociadoEntity associadoEntity){
+    public AssociadoInclusaoDTO convertToDTO(AssociadoEntity associadoEntity) {
         return AssociadoInclusaoDTO.builder()
                 .id(associadoEntity.getId())
                 .nome(associadoEntity.getNome())
@@ -29,26 +29,25 @@ public class AssociadoConverter {
                 .build();
     }
 
-    public AssociadoEntity convertToEntity(AssociadoDTO associadoDTO){
+    public AssociadoEntity convertToEntity(AssociadoDTO associadoDTO) {
         return AssociadoEntity.builder()
                 .id(associadoDTO.getId())
                 .build();
     }
 
-    public AssociadoDTO convertToAssociadoDTO(AssociadoEntity associadoEntity){
+    public AssociadoDTO convertToAssociadoDTO(AssociadoEntity associadoEntity) {
         return AssociadoDTO.builder()
                 .id(associadoEntity.getId())
                 .build();
     }
 
-    public AssociadoListaDTO convertToListaDTO(AssociadoEntity associadoEntity){
+    public AssociadoListaDTO convertToListaDTO(AssociadoEntity associadoEntity) {
         return AssociadoListaDTO.builder()
                 .id(associadoEntity.getId())
                 .nome(associadoEntity.getNome())
                 .cpf(associadoEntity.getCpf())
                 .build();
     }
-
 
 
 }

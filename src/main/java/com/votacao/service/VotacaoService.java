@@ -3,7 +3,6 @@ package com.votacao.service;
 import com.votacao.converter.PautaConverter;
 import com.votacao.converter.VotacaoConverter;
 import com.votacao.domain.VotoEnum;
-import com.votacao.dto.PautaDTO;
 import com.votacao.dto.VotacaoInclusaoDTO;
 import com.votacao.dto.VotacaoListaDTO;
 import com.votacao.entity.VotacaoEntity;
@@ -12,14 +11,11 @@ import com.votacao.exception.VotoException;
 import com.votacao.repository.VotacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;

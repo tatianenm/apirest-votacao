@@ -1,19 +1,16 @@
 package com.votacao.dto;
 
-
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.Builder;
 
 @Getter
 @Setter
 @Builder
-public class AssociadoListaDTO {
+public class SessaoInclusaoDTO {
 
     private Long id;
 
-    private String nome;
-
-    private String cpf;
+    private Integer validade;
 
 }
