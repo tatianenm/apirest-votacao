@@ -46,7 +46,6 @@ public class VotacaoConverter {
         votacoes
                 .forEach(v -> {
                     dtos.add(VotacaoListaDTO.builder()
-                            .id(v.getId())
                             .dataSistema(v.getDataSistema())
                             .idSessao(v.getSessao().getId())
                             .nomePauta(v.getSessao().getPauta().getNomePauta())

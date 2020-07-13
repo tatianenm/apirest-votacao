@@ -3,15 +3,19 @@ package com.votacao.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.votacao.domain.VotoEnum;
 import io.swagger.annotations.ApiModelProperty;
+import java.time.LocalDate;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class VotacaoInclusaoDTO {
 
     @ApiModelProperty(hidden = true)
