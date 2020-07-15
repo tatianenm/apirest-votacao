@@ -45,9 +45,9 @@ public class AssosciadoController {
                 .body(associadoConverter.convertToDTO(associadoEntity));
     }
 
-    @ApiOperation(value = "Lista de associados")
+    @ApiOperation(value = "Associados")
     @GetMapping
-    public List<AssociadoListaDTO> listarContas() {
-        return associadoService.listarAssociados();
+    public List<AssociadoListaDTO> associados() {
+        return associadoService.associados();
     }
 }

@@ -45,9 +45,9 @@ public class PautaController {
                 .body(pautaConverter.convertToDTO(pautaEntity));
     }
 
-    @ApiOperation(value = "Lista de pautas")
+    @ApiOperation(value = "Pautas")
     @GetMapping
-    public List<PautaListaDTO> listarPautas() {
-        return pautaService.listarPautas();
+    public List<PautaListaDTO> pautas() {
+        return pautaService.pautas();
     }
 }

@@ -2,6 +2,7 @@ package com.votacao.service;
 
 import com.votacao.converter.SessaoConverter;
 import com.votacao.domain.StatusSessaoEnum;
+import com.votacao.dto.SessaoListaDTO;
 import com.votacao.entity.PautaEntity;
 import com.votacao.entity.SessaoEntity;
 import com.votacao.exception.SessaoNotFoundException;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SessaoService {
@@ -56,5 +59,15 @@ public class SessaoService {
         return sessaoRepository.findById(idSessao)
                  .orElseThrow(() -> new SessaoNotFoundException("Sessão não Encontrada."));
 
+    }
+
+    public List<SessaoListaDTO> sessoes() {
+       var sessoes = sessaoRepository.findAll();
+       if(sessoes.isEmpty()){
+           throw new SessaoNotFoundException("Nenhuma sessão foi encontrada.");
+       }
+       return sessoes.stream()
+               .map(sessaoConverter::convertToListaDTO)
+               .collect(Collectors.toList());
     }
 }

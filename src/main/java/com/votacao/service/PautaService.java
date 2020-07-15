@@ -29,7 +29,7 @@ public class PautaService {
         return pautaRepository.save(pautaConverter.convertToEntity(pautaInclusaoDTO));
     }
 
-    public List<PautaListaDTO> listarPautas() {
+    public List<PautaListaDTO> pautas() {
         var pautas = pautaRepository.findAll();
         if (pautas.isEmpty()) {
             throw new PautaNotFoundException("Nenhuma pauta foi encontrada");

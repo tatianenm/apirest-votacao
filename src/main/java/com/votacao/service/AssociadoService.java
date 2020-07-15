@@ -30,7 +30,7 @@ public class AssociadoService {
         return associadoRepository.save(associadoConverter.convertToEntity(associadoInclusaoDTO));
     }
 
-    public List<AssociadoListaDTO> listarAssociados() {
+    public List<AssociadoListaDTO> associados() {
         var associados = associadoRepository.findAll();
         if (associados.isEmpty()) {
             throw new AssociadoNotFoundException("Nenhum associado foi encontrado.");

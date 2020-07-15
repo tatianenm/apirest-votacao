@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.votacao.domain.StatusSessaoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +30,7 @@ public class SessaoEntity implements Serializable {
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     @Column(name = "datahorainicio")
     private LocalDateTime dataHoraInicio;
 

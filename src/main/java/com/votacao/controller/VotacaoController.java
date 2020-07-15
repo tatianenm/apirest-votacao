@@ -45,11 +45,11 @@ public class VotacaoController {
                 .body(votacaoConverter.convertToDTO(votacaoEntity));
     }
 
-    @ApiOperation(value = "Lista de votações")
+    @ApiOperation(value = "Votações")
     @GetMapping
-    public List<VotacaoListaDTO> listarVotações(
+    public List<VotacaoListaDTO> votacoes(
             @RequestParam(value = "idPauta", required = true) Long idPauta) {
-        return votacaoService.listarVotacao(idPauta);
+        return votacaoService.votacoes(idPauta);
     }
 
 }

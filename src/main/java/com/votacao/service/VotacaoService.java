@@ -79,7 +79,7 @@ public class VotacaoService {
 
     }
 
-    public List<VotacaoListaDTO> listarVotacao(Long idPauta) {
+    public List<VotacaoListaDTO> votacoes(Long idPauta) {
         var votacoes = votacaoRepository.findBySessao_Pauta_id(idPauta);
         if (votacoes.isEmpty()) {
             throw new PautaNotFoundException(
