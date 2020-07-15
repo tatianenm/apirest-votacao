@@ -33,9 +33,9 @@
    URL:POST/api-rest/v1/votacao
    
    
-   Na abertura do swagger temos cadastro e lista de associados, cadastro e lista de pautas, depois temos o cadastro da sessão
-   onde podemos digitar a quantidade minutos que a sessão da votação deve durar, o cadastro de votos e suas validações e a lista 
-   das votações a partir da pauta escolhida.
+   Na inicialização do swagger temos cadastro e lista de associados, cadastro e lista de pautas, depois temos o cadastro da sessão
+   onde podemos digitar a quantidade minutos que a mesma deve durar, deve ser cadastrado a sessão antes de fazer a votação, 
+   o cadastro de votos e suas validações e a lista das votações a partir da pauta escolhida.
 
   Código implementado:
   Divisão de responsabilidades das classes onde o controlador fica responsável por aceitar e devolver a requisição,
