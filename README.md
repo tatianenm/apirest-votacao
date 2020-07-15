@@ -32,14 +32,12 @@
    Cadastro de Votação
    URL:POST/api-rest/v1/votacao
    
-   Validador de CPF
-   URL:GET/api-rest/v1/votacao/{cpf}
    
    Na abertura do swagger temos cadastro e lista de associados, cadastro e lista de pautas, depois temos o cadastro da sessão
    onde podemos digitar a quantidade minutos que a sessão da votação deve durar, o cadastro de votos e suas validações e a lista 
-   das votações a partir da pauta escolhida e por fim validador de cpf dos associados.
+   das votações a partir da pauta escolhida.
 
   Código implementado:
   Divisão de responsabilidades das classes onde o controlador fica responsável por aceitar e devolver a requisição,
   camada service responsável pelas regras de negócio e o repository responsável pela conexão com banco de dados.
-  DTOs  recebem e devolvem os dados necessários.
+  DTOs  recebem e devolvem os dados necessários.Testes unitários.
