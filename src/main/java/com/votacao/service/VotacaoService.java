@@ -5,6 +5,7 @@ import com.votacao.converter.VotacaoConverter;
 import com.votacao.domain.VotoEnum;
 import com.votacao.dto.VotacaoInclusaoDTO;
 import com.votacao.dto.VotacaoListaDTO;
+import com.votacao.entity.AssociadoEntity;
 import com.votacao.entity.VotacaoEntity;
 import com.votacao.exception.CpfException;
 import com.votacao.exception.PautaNotFoundException;
@@ -14,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -33,7 +31,8 @@ public class VotacaoService {
 
     private SessaoService sessaoService;
 
-    private PautaConverter pautaConverter;
+    private AssociadoService associadoService;
+
 
     @Autowired
     private RestTemplate restTemplate;
@@ -41,14 +40,13 @@ public class VotacaoService {
 
     @Autowired
     public VotacaoService(VotacaoRepository votacaoRepository, VotacaoConverter votacaoConverter,
-                          SessaoService sessaoService, PautaConverter pautaConverter) {
+                          SessaoService sessaoService, AssociadoService associadoService) {
         this.votacaoRepository = votacaoRepository;
         this.votacaoConverter = votacaoConverter;
         this.sessaoService = sessaoService;
-        this.pautaConverter = pautaConverter;
+        this.associadoService = associadoService;
 
     }
-
 
     public VotacaoEntity salvarVotacao(VotacaoInclusaoDTO votacaoInclusaoDTO) {
         if (sessaoService.verificaSessaoExpirada(votacaoInclusaoDTO.getSessao().getId())) {
@@ -58,10 +56,17 @@ public class VotacaoService {
         if (validaVotoRepetido(votacaoInclusaoDTO)) {
             throw new VotoException("Voto repetido.");
         }
-        var votacao = votacaoRepository.findDistinctByAssociado_Id(votacaoInclusaoDTO.getAssociado().getId());
-        isCpfAbleToVote(votacao.getAssociado().getCpf());
+
+        if (isCpfAbleToVote(retornaCpfAssociado(votacaoInclusaoDTO)) == null) {
+            throw new CpfException("Cpf inválido.");
+        }
 
         return votacaoRepository.save(votacaoConverter.convertToEntity(votacaoInclusaoDTO));
+    }
+
+    private String retornaCpfAssociado(VotacaoInclusaoDTO votacaoInclusaoDTO) {
+        return associadoService.retornaAssociadoPeloId(votacaoInclusaoDTO.getAssociado().getId())
+                .orElse(new AssociadoEntity()).getCpf();
     }
 
     private Boolean validaVotoRepetido(VotacaoInclusaoDTO votacaoDTO) {
@@ -79,14 +84,10 @@ public class VotacaoService {
                     String.format("Nenhuma votação foi encontrada para pauta id %s",
                             idPauta));
         }
-        var dtos = votacaoConverter.convertToDTO(votacoes)
-                .stream()
-                .collect(Collectors.groupingBy(dto -> dto.getIdSessao()))
-                .values()
-                .stream()
-                .map(v -> v.stream().findFirst().get())
-                .collect(toList());
+        var dtos = retornaVotacaoDTOsDistinctPeloIdSessao(votacoes);
+
         var votacoesDto = new ArrayList<VotacaoListaDTO>();
+
         dtos.forEach(vDTO -> {
             vDTO.setVotoSim(getCount(vDTO.getIdSessao(), VotoEnum.SIM));
             vDTO.setVotoNão(getCount(vDTO.getIdSessao(), VotoEnum.NAO));
@@ -96,15 +97,21 @@ public class VotacaoService {
 
     }
 
+    private List<VotacaoListaDTO> retornaVotacaoDTOsDistinctPeloIdSessao(List<VotacaoEntity> votacoes) {
+        return votacaoConverter.convertToDTO(votacoes)
+                .stream()
+                .collect(Collectors.groupingBy(dto -> dto.getIdSessao()))
+                .values()
+                .stream()
+                .map(v -> v.stream().findFirst().get())
+                .collect(toList());
+    }
+
     private Boolean isCpfAbleToVote(String cpf) {
-        var status = "";
-        try {
-            var responseEntity = restTemplate
-                    .getForEntity(ENDPOINT_VALIDA_CPF + cpf, Map.class);
-            status = (String) responseEntity.getBody().get("status");
-        } catch (Exception ex) {
-            throw new CpfException("Cpf inválido");
-        }
+        var status = restTemplate
+                .getForEntity(ENDPOINT_VALIDA_CPF + cpf, Map.class).getBody().get("status");
+
+        System.out.println(status);
 
         if (!Objects.equals("ABLE_TO_VOTE", status)) {
             throw new CpfException("UNABLE_TO_VOTE");

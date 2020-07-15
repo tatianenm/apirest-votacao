@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,5 +38,9 @@ public class AssociadoService {
         return associados.stream()
                 .map(associadoConverter::convertToListaDTO)
                 .collect(Collectors.toList());
+    }
+
+    public Optional<AssociadoEntity> retornaAssociadoPeloId(Long id){
+        return associadoRepository.findById(id);
     }
 }
