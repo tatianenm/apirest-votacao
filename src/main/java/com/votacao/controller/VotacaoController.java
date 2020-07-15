@@ -52,11 +52,4 @@ public class VotacaoController {
         return votacaoService.listarVotacao(idPauta);
     }
 
-    @ApiOperation(value = "Validar CPF")
-    @GetMapping("/{cpf}")
-    public ResponseEntity validaCpf(@RequestParam(value = "cpf", required = true) String cpf) {
-        votacaoService.validarCpf(cpf);
-        return new ResponseEntity<>("ABLE_TO_VOTE", HttpStatus.OK);
-    }
-
 }

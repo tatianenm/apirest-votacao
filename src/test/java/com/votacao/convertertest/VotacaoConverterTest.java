@@ -1,6 +1,7 @@
 package com.votacao.convertertest;
 
 import com.votacao.converter.AssociadoConverter;
+import com.votacao.converter.PautaConverter;
 import com.votacao.converter.SessaoConverter;
 import com.votacao.converter.VotacaoConverter;
 import com.votacao.domain.VotoEnum;
@@ -15,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
@@ -38,6 +40,9 @@ public class VotacaoConverterTest {
     @Mock
     private SessaoEntity sessaoEntity;
 
+    @Mock
+    private PautaConverter pautaConverter;
+
     @Test
     public void deveConverterToEntity() {
         var inclusaoDTO = VotacaoInclusaoDTO.builder()
@@ -47,21 +52,16 @@ public class VotacaoConverterTest {
                 .dataSistema(LocalDate.now())
                 .voto(VotoEnum.SIM)
                 .build();
+        Mockito.doCallRealMethod().when(sessaoConverter).convertToEntity(Mockito.any(SessaoDTO.class));
 
         VotacaoEntity votacao = votacaoConverter.convertToEntity(inclusaoDTO);
 
         Assert.assertNotNull(votacao);
-        Assert.assertEquals(votacao.getSessao(), inclusaoDTO.getSessao());
+        Assert.assertEquals(votacao.getSessao().getId(), inclusaoDTO.getSessao().getId());
         Assert.assertEquals(votacao.getDataSistema(), inclusaoDTO.getDataSistema());
         Assert.assertEquals(votacao.getVoto(), inclusaoDTO.getVoto());
+        Mockito.verify(sessaoConverter, Mockito.times(1)).convertToEntity(Mockito.any(SessaoDTO.class));
 
     }
-
-    private SessaoEntity mockSessao(){
-        return SessaoEntity.builder()
-                .id(2L)
-                .build();
-    }
-
 
 }

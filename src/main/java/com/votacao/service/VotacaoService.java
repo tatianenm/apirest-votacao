@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -57,6 +58,8 @@ public class VotacaoService {
         if (validaVotoRepetido(votacaoInclusaoDTO)) {
             throw new VotoException("Voto repetido.");
         }
+        var votacao = votacaoRepository.findDistinctByAssociado_Id(votacaoInclusaoDTO.getAssociado().getId());
+        isCpfAbleToVote(votacao.getAssociado().getCpf());
 
         return votacaoRepository.save(votacaoConverter.convertToEntity(votacaoInclusaoDTO));
     }
@@ -93,15 +96,20 @@ public class VotacaoService {
 
     }
 
-    public Integer validarCpf(String cpf) {
-        var code = restTemplate
-                         .getForEntity(ENDPOINT_VALIDA_CPF + cpf, String.class)
-                         .getStatusCodeValue();
+    private Boolean isCpfAbleToVote(String cpf) {
+        var status = "";
+        try {
+            var responseEntity = restTemplate
+                    .getForEntity(ENDPOINT_VALIDA_CPF + cpf, Map.class);
+            status = (String) responseEntity.getBody().get("status");
+        } catch (Exception ex) {
+            throw new CpfException("Cpf inválido");
+        }
 
-        if (!Objects.equals(200, code)) {
+        if (!Objects.equals("ABLE_TO_VOTE", status)) {
             throw new CpfException("UNABLE_TO_VOTE");
         }
-        return code;
+        return true;
     }
 
     private Long getCount(Long idSessao, VotoEnum voto) {

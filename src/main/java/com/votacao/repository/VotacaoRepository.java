@@ -1,6 +1,7 @@
 package com.votacao.repository;
 
 import com.votacao.domain.VotoEnum;
+import com.votacao.entity.AssociadoEntity;
 import com.votacao.entity.VotacaoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -14,4 +15,6 @@ public interface VotacaoRepository extends JpaRepository<VotacaoEntity, Long> {
     List<VotacaoEntity> findBySessao_Pauta_id(Long idPauta);
 
     Long countBySessao_IdAndVoto(Long idSessao, VotoEnum votoEnum);
+
+    VotacaoEntity findDistinctByAssociado_Id(Long id);
 }
