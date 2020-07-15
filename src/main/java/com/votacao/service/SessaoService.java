@@ -7,6 +7,7 @@ import com.votacao.entity.PautaEntity;
 import com.votacao.entity.SessaoEntity;
 import com.votacao.exception.SessaoNotFoundException;
 import com.votacao.repository.SessaoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ public class SessaoService {
 
     private SessaoConverter sessaoConverter;
 
+    @Autowired
     public SessaoService(SessaoRepository sessaoRepository, SessaoConverter sessaoConverter) {
         this.sessaoRepository = sessaoRepository;
         this.sessaoConverter = sessaoConverter;
