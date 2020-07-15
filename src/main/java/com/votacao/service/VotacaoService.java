@@ -1,6 +1,5 @@
 package com.votacao.service;
 
-import com.votacao.converter.PautaConverter;
 import com.votacao.converter.VotacaoConverter;
 import com.votacao.domain.VotoEnum;
 import com.votacao.dto.VotacaoInclusaoDTO;
@@ -15,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -57,7 +59,7 @@ public class VotacaoService {
             throw new VotoException("Voto repetido.");
         }
 
-        if (isCpfAbleToVote(retornaCpfAssociado(votacaoInclusaoDTO)) == null) {
+        if (Objects.isNull(isCpfAbleToVote(retornaCpfAssociado(votacaoInclusaoDTO)))) {
             throw new CpfException("Cpf inválido.");
         }
 
@@ -109,9 +111,9 @@ public class VotacaoService {
 
     private Boolean isCpfAbleToVote(String cpf) {
         var status = restTemplate
-                .getForEntity(ENDPOINT_VALIDA_CPF + cpf, Map.class).getBody().get("status");
-
-        System.out.println(status);
+                .getForEntity(ENDPOINT_VALIDA_CPF + cpf, Map.class)
+                .getBody()
+                .get("status");
 
         if (!Objects.equals("ABLE_TO_VOTE", status)) {
             throw new CpfException("UNABLE_TO_VOTE");
