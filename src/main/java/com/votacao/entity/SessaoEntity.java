@@ -30,7 +30,6 @@ public class SessaoEntity implements Serializable {
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     @Column(name = "datahorainicio")
     private LocalDateTime dataHoraInicio;
 

@@ -31,9 +31,9 @@ public class SessaoController {
 
     @ApiOperation(value = "Cadastro de sessão")
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE})
+                 produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<SessaoInclusaoDTO> iniciarSessao(@RequestParam(value = "idPauta", required = true)Long idPauta,
+    public ResponseEntity<SessaoInclusaoDTO> iniciarSessao(@RequestParam(value = "idPauta", required = true) Long idPauta,
                                                            @RequestParam(value = "validadeMinutos", required = true) Integer validadeMinutos) {
         SessaoEntity sessaoEntity = sessaoService.iniciarSessao(idPauta, validadeMinutos);
         return ResponseEntity.ok(sessaoConverter.convertToDTO(sessaoEntity));

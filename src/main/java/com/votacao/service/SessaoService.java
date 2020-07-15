@@ -30,16 +30,20 @@ public class SessaoService {
         if (validade == null || validade < 1) {
             validade = 1;
         }
-        var sessaoEntity = SessaoEntity.builder()
-                .dataHoraInicio(LocalDateTime.now())
-                .statusSessao(StatusSessaoEnum.INICIALIZADA)
-                .pauta(PautaEntity.builder().id(idPauta).build())
-                .validade(validade)
-                .build();
-        return sessaoRepository.save(sessaoEntity);
+
+        return sessaoRepository.save(criarSessaoEntity(idPauta, validade));
     }
 
-    public SessaoEntity finalizarSessao(Long idSessao) {
+    private SessaoEntity criarSessaoEntity(Long idPauta, Integer validade) {
+        return SessaoEntity.builder()
+                    .dataHoraInicio(LocalDateTime.now())
+                    .statusSessao(StatusSessaoEnum.INICIALIZADA)
+                    .pauta(PautaEntity.builder().id(idPauta).build())
+                    .validade(validade)
+                    .build();
+    }
+
+    private SessaoEntity finalizarSessao(Long idSessao) {
         var sessao = findById(idSessao);
         sessao.setStatusSessao(StatusSessaoEnum.FINALIZADA);
         return sessaoRepository.save(sessao);
