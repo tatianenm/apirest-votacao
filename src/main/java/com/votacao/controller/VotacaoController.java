@@ -55,14 +55,8 @@ public class VotacaoController {
     @ApiOperation(value = "Validar CPF")
     @GetMapping("/{cpf}")
     public ResponseEntity validaCpf(@RequestParam(value = "cpf", required = true) String cpf) {
-        if (!votacaoService.validarCpf(cpf).is2xxSuccessful()) {
-            return new ResponseEntity<>(
-                    "UNABLE_TO_VOTE",
-                    HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(
-                "ABLE_TO_VOTE",
-                HttpStatus.OK);
+        votacaoService.validarCpf(cpf);
+        return new ResponseEntity<>("ABLE_TO_VOTE", HttpStatus.OK);
     }
 
 }

@@ -6,16 +6,17 @@ import com.votacao.domain.VotoEnum;
 import com.votacao.dto.VotacaoInclusaoDTO;
 import com.votacao.dto.VotacaoListaDTO;
 import com.votacao.entity.VotacaoEntity;
+import com.votacao.exception.CpfException;
 import com.votacao.exception.PautaNotFoundException;
 import com.votacao.exception.VotoException;
 import com.votacao.repository.VotacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -92,10 +93,15 @@ public class VotacaoService {
 
     }
 
-    public HttpStatus validarCpf(String cpf) {
-        return restTemplate
-                .getForEntity(ENDPOINT_VALIDA_CPF + cpf, String.class)
-                .getStatusCode();
+    public Integer validarCpf(String cpf) {
+        var code = restTemplate
+                         .getForEntity(ENDPOINT_VALIDA_CPF + cpf, String.class)
+                         .getStatusCodeValue();
+
+        if (!Objects.equals(200, code)) {
+            throw new CpfException("UNABLE_TO_VOTE");
+        }
+        return code;
     }
 
     private Long getCount(Long idSessao, VotoEnum voto) {

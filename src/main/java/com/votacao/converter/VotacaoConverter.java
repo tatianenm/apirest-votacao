@@ -13,9 +13,6 @@ import java.util.List;
 public class VotacaoConverter {
 
     @Autowired
-    private PautaConverter pautaConverter;
-
-    @Autowired
     private AssociadoConverter associadoConverter;
 
     @Autowired

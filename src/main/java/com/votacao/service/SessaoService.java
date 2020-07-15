@@ -4,7 +4,7 @@ import com.votacao.converter.SessaoConverter;
 import com.votacao.domain.StatusSessaoEnum;
 import com.votacao.entity.PautaEntity;
 import com.votacao.entity.SessaoEntity;
-import com.votacao.exception.SessaoException;
+import com.votacao.exception.SessaoNotFoundException;
 import com.votacao.repository.SessaoRepository;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +53,8 @@ public class SessaoService {
     }
 
     private SessaoEntity findById(Long idSessao) {
-        var sessaoOpt = sessaoRepository.findById(idSessao);
-        return sessaoOpt.orElseThrow(() -> new SessaoException("Sessão não Encontrada"));
+        return sessaoRepository.findById(idSessao)
+                 .orElseThrow(() -> new SessaoNotFoundException("Sessão não Encontrada."));
+
     }
 }
