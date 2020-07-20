@@ -35,11 +35,21 @@ public class VotacaoServiceTest {
 
         Mockito.doReturn(true).when(sessaoService).verificaSessaoExpirada(Mockito.any());
 
-        votacaoService.salvarVotacao(VotacaoInclusaoDTO.builder()
-                .sessao(SessaoDTO.builder().id(5L).build()).build());
-        Mockito.verify(sessaoService, Mockito.times(1)).verificaSessaoExpirada(Mockito.any());
+        votacaoService.salvarVotacao(mockVotacaoInclusaoDTO());
+        Mockito.verify(sessaoService, Mockito.times(1))
+                .verificaSessaoExpirada(Mockito.any());
 
     }
+
+    private VotacaoInclusaoDTO mockVotacaoInclusaoDTO() {
+        return VotacaoInclusaoDTO.builder()
+                .sessao(mockSessaoDTO()).build();
+    }
+
+    private SessaoDTO mockSessaoDTO() {
+        return SessaoDTO.builder().id(5L).build();
+    }
+
 
 }
 
