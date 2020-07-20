@@ -1,7 +1,6 @@
 package com.votacao.convertertest;
 
 import com.votacao.converter.AssociadoConverter;
-import com.votacao.converter.PautaConverter;
 import com.votacao.converter.SessaoConverter;
 import com.votacao.converter.VotacaoConverter;
 import com.votacao.domain.VotoEnum;
@@ -28,6 +27,11 @@ public class VotacaoConverterTest {
 
     private static final Long ID_SESSAO = 3L;
 
+    private static final Long ID_ASSOCIADO = 6L;
+
+    private static final LocalDate DATA_SISTEMA = LocalDate.now();
+
+    private static final VotoEnum VOTO_SIM = VotoEnum.SIM;
 
     @InjectMocks
     private VotacaoConverter votacaoConverter;
@@ -35,33 +39,70 @@ public class VotacaoConverterTest {
     private SessaoConverter sessaoConverter;
     @Mock
     private AssociadoConverter associadoConverter;
-    @Mock
-    private AssociadoEntity associadoEntity;
-    @Mock
-    private SessaoEntity sessaoEntity;
-
-    @Mock
-    private PautaConverter pautaConverter;
 
     @Test
     public void deveConverterToEntity() {
-        var inclusaoDTO = VotacaoInclusaoDTO.builder()
-                .id(ID)
-                .sessao(SessaoDTO.builder().id(ID_SESSAO).build())
-                .associado(AssociadoDTO.builder().id(6L).build())
-                .dataSistema(LocalDate.now())
-                .voto(VotoEnum.SIM)
-                .build();
+        var inclusaoDTO = mockVotacaoInclusaoDTO();
         Mockito.doCallRealMethod().when(sessaoConverter).convertToEntity(Mockito.any(SessaoDTO.class));
 
-        VotacaoEntity votacao = votacaoConverter.convertToEntity(inclusaoDTO);
+        var votacao = votacaoConverter.convertToEntity(inclusaoDTO);
 
         Assert.assertNotNull(votacao);
         Assert.assertEquals(votacao.getSessao().getId(), inclusaoDTO.getSessao().getId());
         Assert.assertEquals(votacao.getDataSistema(), inclusaoDTO.getDataSistema());
         Assert.assertEquals(votacao.getVoto(), inclusaoDTO.getVoto());
-        Mockito.verify(sessaoConverter, Mockito.times(1)).convertToEntity(Mockito.any(SessaoDTO.class));
+        Mockito.verify(sessaoConverter, Mockito.times(1))
+                .convertToEntity(Mockito.any(SessaoDTO.class));
 
+    }
+
+    private VotacaoInclusaoDTO mockVotacaoInclusaoDTO() {
+        return VotacaoInclusaoDTO.builder()
+                .id(ID)
+                .sessao(mockSessaoDTO())
+                .associado(mockAssociadoDTO())
+                .dataSistema(DATA_SISTEMA)
+                .voto(VotoEnum.SIM)
+                .build();
+    }
+
+    private AssociadoDTO mockAssociadoDTO() {
+        return AssociadoDTO.builder().id(ID_ASSOCIADO).build();
+    }
+
+    private SessaoDTO mockSessaoDTO() {
+        return SessaoDTO.builder().id(ID_SESSAO).build();
+    }
+
+    @Test
+    public void deveConverterToDTO() {
+        var votacao = mockVotacaoEntity();
+        Mockito.doCallRealMethod().when(sessaoConverter).convertToEntity(Mockito.any(SessaoDTO.class));
+
+        var votacaoInclusao = votacaoConverter.convertToDTO(votacao);
+
+        Assert.assertNotNull(votacaoInclusao);
+        Assert.assertEquals(votacaoInclusao.getDataSistema(), votacao.getDataSistema());
+        Assert.assertEquals(votacaoInclusao.getVoto(), votacao.getVoto());
+
+    }
+
+    private VotacaoEntity mockVotacaoEntity() {
+        return VotacaoEntity.builder()
+                .associado(mockAssociado())
+                .dataSistema(DATA_SISTEMA)
+                .id(ID)
+                .voto(VOTO_SIM)
+                .sessao(mockSessao())
+                .build();
+    }
+
+    private AssociadoEntity mockAssociado() {
+        return AssociadoEntity.builder().id(ID_ASSOCIADO).build();
+    }
+
+    private SessaoEntity mockSessao() {
+        return SessaoEntity.builder().id(ID_SESSAO).build();
     }
 
 }
